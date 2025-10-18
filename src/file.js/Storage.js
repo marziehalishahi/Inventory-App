@@ -1,57 +1,56 @@
-const product = [
+const products = [
     {
-        id: 1,
-        title: 'React.js',
-        category: 'frontend',
-        updated: '2021-09-01',
+      id: 1,
+      title: "React.js",
+      category: "frontend",
+      createdAt: "2021-10-31T15:02:00.411Z",
     },
     {
-        id: 2,
-        title: 'next.js',
-        category: 'frontend',
-        updated: '2021-10-01',
+      id: 2,
+      title: "Node.js",
+      category: "backend",
+      createdAt: "2021-10-31T15:03:23.556Z",
     },
     {
-        id: 3,
-        title: 'HTML',
-        category: 'frontend',
-        updated: '2021-11-01',
+      id: 3,
+      title: "Vue.js",
+      category: "frontend",
+      createdAt: "2021-11-01T10:47:26.889Z",
     },
-];
-
-const categories = [
+  ];
+  
+  const categories = [
     {
-        id: 1,
-        title: 'frontend',
-        description: 'frontend development',
-        createdAt: '2021-12-01',
+      id: 1,
+      title: "frontend",
+      description: "frontend of applications",
+      createdAt: "2021-11-01T10:47:26.889Z",
     },
     {
-        id: 2,
-        title: 'backend',
-        description: 'backend development',
-        createdAt: '2022-12-01',
+      id: 2,
+      title: "backend",
+      description: "the backend of the applications",
+      createdAt: "2021-10-01T10:47:26.889Z",
     },
-
-];
+  ];
 
 export default class Storage {
     //  getAllcategories دسته بندی های ایجاد شده را به کاربر نمایش می دهد
 
     static getAllcategories() {
-        const saveCategories = JSON.parse(localStorage.getItem('category')) || [];
+        const savedCategories = JSON.parse(localStorage.getItem('category')) || [];
         // sort => به صورت نزولی دسته بندی ها را مرتب می کند => desending
-        const sorteDCategories = savedCategories.sort((a, b) => {
+        const sortedCategories = savedCategories.sort((a, b) => {
             return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
         });
-        return sorteDCategories;
+        return sortedCategories;
     }
     static saveCategory(categoryToSave) {
         const savedCategories = Storage.getAllcategories();
         // edit=> ... save
         // new => create
         const existedItem = savedCategories.find((item) => item.id === categoryToSave.id);
-        if (existedIteem) {
+        if (existedItem) {
             //    edit
             existedItem.title = categoryToSave.title;
             existedItem.description = categoryToSave.description;
@@ -62,5 +61,25 @@ export default class Storage {
             savedCategories.push(categoryToSave);
         }
         localStorage.setItem('category', JSON.stringify(savedCategories));
+    }
+    static getAllProducts () {
+      const savedProducts = JSON.parse(localStorage.getItem('products')) || [];
+        return savedProducts.sort((a, b) => {
+            return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
+        });
+    }
+    static savedProducts (productToSave) {
+       const savedProducts = Storage.getAllProducts();
+        const existedItem = savedProducts.find((item) => item.id === productToSave.id);
+        if (existedItem) {
+            existedItem.title = productToSave.title;
+            existedItem.quantity = productToSave.quantity;
+            existedItem.category = productToSave.category;
+        } else {
+            productToSave.id = new Date().getTime();
+            productToSave.createdAt = new Date().toISOString();
+            savedProducts.push(productToSave);
+        }
+        localStorage.setItem('products', JSON.stringify(savedProducts));
     }
 }
