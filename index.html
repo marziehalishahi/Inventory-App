@@ -63,13 +63,14 @@
             <label for="product-category" class="block mb-1 text-slate-400">Category</label>
             <select name="product category" id="product-category" type="number"
               class="bg-transparent w-full rounded-xl border border-slate-500 text-slate-400 p-1">
+              <option class="bg-slate-500 text-slate-300 text-sm font-light" value="">select a category</option>
               <!-- <option class="bg-slate-500 text-slate-300 text-sm font-light" value="">select a category</option> -->
               <!-- <option class="bg-slate-500 text-slate-300 text-sm font-light" value="backend">backend</option>
               <option class="bg-slate-500 text-slate-300 text-sm font-light" value="frontend">frontend</option> -->
             </select>
           </div>
           <div class="flex items-center justify-center">
-            <button class="cursor-pointer w-full rounded-lg bg-slate-300 text-slate-800 font-bold text-sm py-1">Add New
+            <button id="add-new-product" class="cursor-pointer w-full rounded-lg bg-slate-300 text-slate-800 font-bold text-sm py-1">Add New
               Product</button>
           </div>
         </form>
@@ -81,9 +82,10 @@
         <div class="flex items-center justify-between gap-x-4 mb-3">
           <span class="text-slate-400 text-lg font-medium">sort</span>
           <div>
-            <select class="border border-slate-300 rounded-xl w-25 py-1 text-slate-300 font-normal" name="sort"
-              id="sort">
-              <option class="text-slate-300 font-light bg-slate-500 text-sm " value="latest">latest</option>
+            <select class="border border-slate-300 rounded-xl w-full py-1 text-slate-300 font-normal" name="sort-products"
+              id="sort-products">
+              <option class="text-slate-300 font-light bg-slate-500 text-sm " value="">select a category</option>
+              <option class="text-slate-300 font-light bg-slate-500 text-sm " selected value="newest">newest</option>
               <option class="text-slate-300 font-light bg-slate-500 text-sm " value="oldest">oldest</option>
             </select>
           </div>
@@ -92,21 +94,22 @@
         <div class="flex items-center justify-between gap-x-4 mb-4">
           <span class="text-slate-400 text-lg font-medium">search</span>
           <div>
-            <input type="text" name="search" id="search" placeholder="search ..."
+            <input type="text" name="search-input" id="search-input" placeholder="search ..."
               class="bg-transparent rounded-xl border border-slate-500 text-slate-400 p-1">
           </div>
         </div>
       </div>
       <!-- product sub list -->
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-slate-300 text-sm font-medium">react.js</span>
+       <div id="products-list"></div>
+      <!-- <div class="flex items-center justify-between mb-2">
+        <div><span class="text-slate-300 text-sm font-medium">react.js</span></div>
         <div class="flex items-center justify-center gap-x-3">
           <span class="text-slate-300 text-sm font-medium">1403/11/30</span>
           <button class="rounded-2xl border border-slate-600 py-1 px-3 text-slate-600 font-normal text-sm cursor-pointer">backend</button>
           <span class="border-2 border-slate-300 rounded-full w-5 h-5 flex items-center justify-center bg-slate-600 text-slate-300 font-medium text-sm">10</span>
           <span class="text-slate-300 text-sm font-medium">delete</span>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div id="app"></div>
