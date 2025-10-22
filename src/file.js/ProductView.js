@@ -9,6 +9,7 @@ class ProductView {
     addNewProductBtn.addEventListener("click", (e) => this.addNewProduct(e));
     searchInput.addEventListener("input", (e) => this.searchProducts(e));
     selectedSort.addEventListener("change", (e) => this.sortProduct(e));
+    // deleteProduct.addEventListener("click", (e) => this.deleteProduct(e));
     this.products = [];
   }
   setApp() {
@@ -29,20 +30,24 @@ class ProductView {
     let result = "";
     products.forEach((item) => {
       const selectedCategory = Storage.getAllcategories().find(
-        (c) => c.id = item.category
+        (c) => c.id == item.category
       );
       result += ` <div class="flex items-center justify-between mb-2">
         <div><span class="text-slate-300 text-sm font-medium">${item.title} </span></div>
         <div class="flex items-center justify-center gap-x-3">
           <span class="text-slate-300 text-sm font-medium">${new Date().toLocaleDateString("fa-IR")}</span>
-          <span class="rounded-2xl border border-slate-600 py-1 px-3 text-slate-600 font-normal text-sm cursor-pointer">${selectedCategory.title} </span>
-          <span class="border-2 border-slate-300 rounded-full w-5 h-5 flex items-center justify-center bg-slate-600 text-slate-300 font-medium text-sm">${item.quantity} </span>
-          <button class="text-slate-300 text-sm font-medium data-id=${item.id}">delete</button>
+          <span class="rounded-2xl border border-slate-600 py-1 px-3 text-slate-600 font-semibold text-sm">${selectedCategory.title} </span>
+          <span class="border-2 border-slate-300 rounded-full w-6 h-6 flex items-center justify-center bg-slate-600 text-slate-300 font-normal text-sm">${item.quantity} </span>
+          <button class="delete-product text-center cursor-pointer text-red-400 text-sm font-medium rounded-full border-2 px-2 border-red-400" data-product-id=${item.id}>delete</button>
         </div>
       </div>`;
     });
     const productsDOM = document.getElementById("products-list");
     productsDOM.innerHTML = result;
+    const deleteBtns = [...document.querySelectorAll(".delete-product")];
+    deleteBtns.forEach((item) => {
+      item.addEventListener("click", (e)=> this.deleteProduct(e));
+    });
   }
   searchProducts(e){
     const value = e.target.value.trim().toLowerCase();
@@ -52,6 +57,12 @@ class ProductView {
   sortProduct(e){
     const value = e.target.value;
     this.products = Storage.getAllProducts(value);
+    this.createProductsList(this.products);
+  }
+  deleteProduct(e){
+    const productId = e.target.dataset.productId;
+    Storage.deleteProduct(productId);
+    this.products = Storage.getAllProducts();
     this.createProductsList(this.products);
   }
 }
